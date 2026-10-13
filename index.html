@@ -1,0 +1,860 @@
+<!doctype html><html><head><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>연금 상담 신청</title>
+<style>
+
+/* KB 브랜드 폰트 번들 - base64 내장 (kb_fonts_bundle.css) */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+  --bg: #F7F4EC;
+  --surface: #FFFFFF;
+  --surface-2: #FBF9F3;
+  --ink: #211D18;
+  --sub: #5A5347;
+  --note: #97907F;
+  --line: #E6E0CF;
+  --accent: #F0A202;
+  --accent-deep: #C77F00;
+  --accent-ink: #211D18;
+  /* Fixed "always-dark" accent surface (hero card, dark CTA buttons) and its
+     text color. These intentionally do NOT redefine per color-scheme below —
+     they're a branded dark chip that should never flip to light-on-light. */
+  --navy: #211D18;
+  --on-navy: #FFFFFF;
+  --on-navy-sub: #C9C2B4;
+  --shadow: 0 18px 40px -22px rgba(33,29,24,0.35);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16130F;
+    --surface: #211D18;
+    --surface-2: #29241D;
+    --ink: #F5F1E6;
+    --sub: #C9C2B4;
+    --note: #8B8474;
+    --line: #3A342A;
+    --accent: #F5B22B;
+    --accent-deep: #E0982A;
+    --accent-ink: #211D18;
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.55);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16130F;
+  --surface: #211D18;
+  --surface-2: #29241D;
+  --ink: #F5F1E6;
+  --sub: #C9C2B4;
+  --note: #8B8474;
+  --line: #3A342A;
+  --accent: #F5B22B;
+  --accent-deep: #E0982A;
+  --accent-ink: #211D18;
+  --shadow: 0 18px 40px -20px rgba(0,0,0,0.55);
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'KBFGText', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+h1, h2, h3, .display {
+  font-family: 'KBFGDisplay', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  background: var(--navy);
+  color: var(--on-navy);
+  padding: 56px 0 96px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0; height: 6px;
+  background: var(--accent);
+  clip-path: polygon(0 100%, 100% 40%, 100% 100%, 0 100%);
+}
+.hero .wrap { position: relative; z-index: 1; }
+.logo-life { height: 44px; width: auto; display: block; margin-bottom: 28px; }
+.eyebrow {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  padding: 8px 18px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(34px, 7vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+.hero p.sub {
+  color: var(--on-navy-sub);
+  font-size: 17px;
+  max-width: 46ch;
+  margin-bottom: 28px;
+}
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.stat-card {
+  flex: 1 1 180px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px 22px;
+  border-left: 6px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+.stat-card .stat-value {
+  font-family: 'KBFGDisplay', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.stat-card .stat-label {
+  font-size: 13px;
+  color: #5A5347;
+  line-height: 1.4;
+}
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: var(--accent-ink);
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 30px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 18px 38px -16px rgba(240,162,2,0.55), 0 8px 18px -10px rgba(0,0,0,0.3);
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
+}
+.btn-primary .arrow { display: inline-block; transition: transform .15s ease; }
+.btn-primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 20px 42px -14px rgba(240,162,2,0.65), 0 9px 20px -8px rgba(0,0,0,0.35);
+}
+.btn-primary:hover .arrow { transform: translateX(3px); }
+.btn-primary:active { transform: translateY(0); }
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  color: var(--on-navy);
+  font-weight: 700;
+  font-size: 16px;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 999px;
+  padding: 16px 30px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.75); transform: translateY(-1px); }
+.btn-secondary:active { transform: translateY(0); }
+
+/* ── SECTION shared ── */
+section { padding: 56px 0; }
+.section-head { margin-bottom: 32px; }
+.section-head .kicker {
+  color: var(--accent-deep);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  margin-bottom: 8px;
+}
+.section-head h2 {
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* ── FEATURES ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 560px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 700;
+  font-family: 'KBFGDisplay', sans-serif;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.feature-card h3 { font-size: 18px; font-weight: 700; }
+.feature-card p { color: var(--sub); font-size: 15px; margin: 0; }
+
+/* ── COMPARE ── */
+.compare-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 560px) { .compare-card { grid-template-columns: 1fr; } }
+.compare-card .col-right {
+  border-left: 1px solid var(--line);
+  padding-left: 16px;
+}
+@media (max-width: 560px) {
+  .compare-card .col-right {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+}
+.compare-card h3 { font-size: 15px; margin: 0; }
+.compare-card p { margin: 8px 0 0; font-size: 14px; }
+
+/* ── ADVISOR ── */
+.advisor {
+  background: var(--surface-2);
+  border-radius: 24px;
+  padding: 36px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.avatar {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--accent);
+  font-family: 'KBFGDisplay', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.advisor-body { flex: 1; min-width: 220px; }
+.advisor-body h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.advisor-body .role { color: var(--sub); font-size: 14px; margin-bottom: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chip {
+  font-size: 13px; font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--sub);
+}
+.advisor-body p.intro { font-size: 15px; color: var(--ink); margin: 0; }
+
+/* ── FORM ── */
+.form-section { background: var(--surface-2); border-radius: 28px; padding: 40px; }
+.field { margin-bottom: 18px; display: flex; flex-direction: column; gap: 8px; }
+.field label { font-size: 14px; font-weight: 700; color: var(--ink); }
+.field .req { color: var(--accent-deep); }
+.field input[type="text"],
+.field input[type="tel"],
+.field input[type="date"],
+.field input[type="number"],
+.field select {
+  font: inherit;
+  font-size: 16px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  width: 100%;
+}
+.field input:focus, .field select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.consent-notice {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--sub);
+  margin-bottom: 20px;
+}
+.submit-row { display: flex; flex-direction: column; gap: 10px; }
+.btn-submit {
+  display: block;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-family: 'KBFGDisplay', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  width: 100%;
+}
+.btn-submit:hover { filter: brightness(1.15); }
+.form-note { font-size: 12px; color: var(--note); text-align: center; }
+.success-msg {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 14px;
+  color: var(--ink);
+  margin-top: 16px;
+}
+
+/* ── CALCULATOR ── */
+.calc-section { background: var(--surface-2); border-radius: 28px; padding: 40px; }
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 8px;
+}
+@media (max-width: 560px) { .calc-grid { grid-template-columns: 1fr; } }
+.calc-grid .field { margin-bottom: 0; }
+.calc-grid .field.full { grid-column: 1 / -1; }
+.field-hint { font-size: 12px; color: var(--note); }
+.field-err { font-size: 12px; color: var(--accent-deep); min-height: 16px; }
+.btn-calc {
+  background: var(--navy);
+  color: var(--on-navy);
+  font-family: 'KBFGDisplay', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin: 18px 0 6px;
+}
+.btn-calc:hover { filter: brightness(1.15); }
+.calc-result {
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--line);
+}
+.calc-result[hidden] { display: none; }
+.calc-result h3 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+@media (max-width: 560px) { .result-grid { grid-template-columns: 1fr; } }
+.result-tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+.result-tile .rk { font-size: 13px; color: var(--sub); margin-bottom: 6px; }
+.result-tile .rv {
+  font-family: 'KBFGDisplay', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.result-tile.accent { border-color: var(--accent); }
+.result-tile.accent .rv { color: var(--accent-deep); }
+.calc-note {
+  font-size: 12px;
+  color: var(--note);
+  line-height: 1.7;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 36px 0 48px;
+}
+footer .contact { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+footer .reg { font-size: 13px; color: var(--sub); margin-bottom: 18px; }
+footer .disclaimer {
+  font-size: 12px;
+  color: var(--note);
+  line-height: 1.7;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+</style>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">연금 정보</div>
+    <h1>사업비 <em>0원</em>,<br>확정금리 <em>7%</em><br>쌓는 연금</h1>
+    <p class="sub">많은 연금상품은 사업비가 먼저 빠집니다. 가입 후 20년간 연 7%, 이후 연 5%(단리)로 적립되는 확정금리 최저보증 구조는 다릅니다.</p>
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value">연 7%</div>
+        <div class="stat-label">최저 보증<br>가입 후 20년 이내</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">0원</div>
+        <div class="stat-label">사업비<br>유지 시 미차감</div>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="btn-primary" href="#apply">무료 연금 점검 신청하기 <span class="arrow">→</span></a>
+      <a class="btn-secondary" href="#calculator">내 연금 계산해보기</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">사업비란</div>
+      <h2>사업비, 왜 확인해야 할까요?</h2>
+    </div>
+    <div class="feature-card" style="max-width:100%; gap:14px;">
+      <p style="color:var(--sub); font-size:15px; margin:0;">
+        연금보험료 중 일부는 설계·운영에 쓰이는 <strong style="color:var(--ink);">사업비</strong>로 먼저 차감된 뒤 적립되는 경우가 많습니다.
+        이 구조는 사업비를 연금 재원(연금기준금액)에서 차감하지 않고, 계약을 유지하는 동안에는 재원에 전혀 반영하지 않습니다 —
+        대신 사업비는 계약을 <strong style="color:var(--ink);">중도 해지할 때의 해약환급금에서만</strong> 차감되는 방식입니다.
+      </p>
+      <p style="color:var(--sub); font-size:15px; margin:0;">
+        최저연금기준금액은 기본보험료를 기준으로 가입 후 20년 이내 연 7%, 이후 연 5%로 단리 적립되는 것으로 계산되며,
+        <strong style="color:var(--ink);">공시이율이 하락하더라도 이 기준금액은 그대로 보증</strong>됩니다. 시장 금리와 무관하게 확정된 속도로 불어나는 구조입니다.
+      </p>
+      <p style="color:var(--note); font-size:12px; margin:0;">
+        출처: 보험사 상품요약서·보도자료(2026년 8월 기준) · 위 구조는 계약을 유지하는 경우 기준이며, 중도 해지 시에는 해약환급금이 지급됩니다.
+      </p>
+    </div>
+
+    <div class="feature-card compare-card" style="max-width:100%; margin-top:16px;">
+      <div>
+        <h3 style="color:var(--sub);">일반적인 연금보험</h3>
+        <p style="color:var(--sub);">사업비를 먼저 차감한 금액을 적립 → 적립 속도가 상대적으로 느립니다.</p>
+      </div>
+      <div class="col-right">
+        <h3 style="color:var(--accent-deep);">이 연금 구조</h3>
+        <p style="color:var(--ink);">원금 그대로 연금기준금액에 적립 → 사업비 차감 없이 온전한 속도로 불어납니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">CHECK POINT</div>
+      <h2>연금, 이 네 가지는 꼭 확인하세요</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-num">1</div>
+        <h3>사업비 미차감 구조</h3>
+        <p>유지 시 연금 재원(연금기준금액)에는 사업비가 전혀 차감되지 않습니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">2</div>
+        <h3>7%·5% 최저보증</h3>
+        <p>가입 후 20년 이내 연 7%, 이후 연 5% 단리로 적립되는 최저연금기준금액이 보증됩니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">3</div>
+        <h3>장기유지 가산</h3>
+        <p>가입부터 연금개시까지 25년 이상 유지하면 기본지급률에 장기유지가산율이 더해집니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">4</div>
+        <h3>비과세 요건</h3>
+        <p>5년 이상 납입·10년 이상 유지·월 150만원 이하 요건을 충족하면 이자소득세가 면제됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calculator">
+  <div class="wrap">
+    <div class="calc-section">
+      <div class="section-head">
+        <div class="kicker">PENSION CALCULATOR</div>
+        <h2>내 조건으로 직접 계산해보기</h2>
+      </div>
+      <p style="color:var(--sub); font-size:14px; margin:-16px 0 24px;">
+        가입나이·연금개시나이·납입기간·월납보험료를 입력하면, 최저연금기준금액 산출 방식(연 7%[20년 이내]·5%[이후] 단리 적립 + 장기유지가산율)에 따른 예상 연금을 바로 확인할 수 있습니다.
+      </p>
+
+      <div class="calc-grid">
+        <div class="field">
+          <label for="c_gender">성별</label>
+          <select id="c_gender">
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c_years">납입기간</label>
+          <select id="c_years">
+            <option value="5">5년납</option>
+            <option value="7">7년납</option>
+            <option value="10" selected>10년납</option>
+            <option value="15">15년납</option>
+            <option value="20">20년납</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="c_entryAge">가입나이 (0~65세)</label>
+          <input type="number" id="c_entryAge" min="0" max="65" value="40">
+          <div class="field-err" id="err-c_entryAge"></div>
+        </div>
+        <div class="field">
+          <label for="c_startAge">연금개시나이 (55~85세)</label>
+          <input type="number" id="c_startAge" min="55" max="85" value="65">
+          <div class="field-err" id="err-c_startAge"></div>
+        </div>
+        <div class="field full">
+          <label for="c_premium">월납보험료 (원)</label>
+          <input type="text" id="c_premium" inputmode="numeric" value="1,000,000">
+          <div class="field-hint">1구좌 기준 월 20만원~100만원 (10년납 이상·30세 이하는 10만원부터)</div>
+          <div class="field-err" id="err-c_premium"></div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-calc" id="c_calcBtn">예상 연금 계산하기</button>
+      <div class="field-err" id="err-c_combo" style="text-align:center;"></div>
+
+      <div class="calc-result" id="c_result" hidden>
+        <h3 id="c_resultTitle">이렇게 계산됩니다</h3>
+        <div class="result-grid">
+          <div class="result-tile">
+            <div class="rk">총 납입원금</div>
+            <div class="rv" id="r_totalPremium">-</div>
+          </div>
+          <div class="result-tile accent">
+            <div class="rk">연금개시시점 연금기준금액</div>
+            <div class="rv" id="r_A">-</div>
+          </div>
+          <div class="result-tile">
+            <div class="rk">기본지급률 × 장기유지가산</div>
+            <div class="rv" id="r_BC">-</div>
+          </div>
+          <div class="result-tile accent">
+            <div class="rk">예상 연간 연금액</div>
+            <div class="rv" id="r_annual">-</div>
+          </div>
+          <div class="result-tile">
+            <div class="rk">수령 기간</div>
+            <div class="rv" id="r_years">-</div>
+          </div>
+          <div class="result-tile">
+            <div class="rk">100세까지 총수령액(예상)</div>
+            <div class="rv" id="r_total">-</div>
+          </div>
+        </div>
+        <div class="calc-note">
+          이 계산 결과는 최저연금기준금액 산출 공식(단리 적립 + 기본지급률 + 장기유지가산율)에 따른 참고용 예시이며 특정 상품의 가입을 권유하는 것이 아닙니다.
+          실제 지급률·가산율은 상품 공시 기준표를 따르며, 계약자적립액에 따라 실제 금액은 달라질 수 있습니다.
+          <strong style="color:var(--ink);">계약을 해지하면 연금기준금액은 지급되지 않고 해약환급금이 지급됩니다.</strong>
+          출처: 보험사 상품요약서·보도자료(2026년 8월 기준)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apply">
+  <div class="wrap">
+    <div class="form-section">
+      <div class="section-head">
+        <div class="kicker">FREE CONSULTING</div>
+        <h2>무료 연금 점검 신청</h2>
+      </div>
+      <p style="color:var(--sub); font-size:14px; margin:-16px 0 20px;">아래 정보를 남겨주시면 확인 후 순차적으로 연락드립니다.</p>
+
+      <form id="leadForm">
+        <div class="field">
+          <label for="f_name">성함 <span class="req">*</span></label>
+          <input type="text" id="f_name" name="f_name" placeholder="홍길동" required>
+        </div>
+        <div class="field">
+          <label for="f_phone">연락처 <span class="req">*</span></label>
+          <input type="tel" id="f_phone" name="f_phone" placeholder="010-0000-0000" required>
+        </div>
+        <div class="field">
+          <label for="f_birth">생년월일 (선택)</label>
+          <input type="date" id="f_birth" name="f_birth">
+        </div>
+        <div class="field">
+          <label for="f_time">상담 희망 시간대</label>
+          <select id="f_time" name="f_time">
+            <option value="무관">무관</option>
+            <option value="오전(09-12시)">오전 (09~12시)</option>
+            <option value="오후(12-18시)">오후 (12~18시)</option>
+            <option value="저녁(18-21시)">저녁 (18~21시)</option>
+          </select>
+        </div>
+
+        <div class="consent-notice">
+          개인정보 수집·이용 안내 — 수집 항목: 성명, 연락처, 생년월일(선택) · 수집 목적: 연금 상담 및 안내 ·
+          보유 기간: 상담 완료 후 1년 또는 동의 철회 시까지. 동의를 거부할 권리가 있으며, 동의 거부 시
+          상담 신청이 제한될 수 있습니다. 아래 버튼을 누르면 위 내용에 동의한 것으로 간주되며,
+          구글폼 화면으로 이동해 입력하신 내용이 자동으로 채워집니다 — 거기서 '제출' 버튼만
+          한 번 더 눌러주시면 신청이 완료됩니다.
+        </div>
+
+        <div class="submit-row">
+          <a id="applyLink" class="btn-submit" href="#apply" target="_blank" rel="noopener">상담 신청하기</a>
+          <div class="form-note">신청 내용은 상담 목적으로만 사용되며 제3자에게 제공되지 않습니다.</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      본 페이지는 일반적인 연금 정보 안내를 위해 제작되었으며 특정 금융상품의 가입을 권유하는 광고가 아닙니다.
+      페이지 내 연금 계산기는 최저연금기준금액 산출 공식에 따른 참고용 예시 계산 도구이며, 실제 가입 가능 여부·지급률·가산율은 상담을 통해 확인해야 합니다.
+      계약을 해지할 경우 최저연금기준금액 및 연금기준금액은 지급되지 않으며 해약환급금이 지급됩니다.
+      비과세 요건은 세법 개정에 따라 변경될 수 있으며, 중도 해지 시 비과세 혜택이 제한될 수 있습니다.
+      실제 보장 내용, 가입조건, 보험료 및 수령액은 상품 및 약관에 따라 다르며, 정확한 사항은 개별 상담 및
+      상품설명서를 통해 확인하시기 바랍니다.<br>
+      출처: 보험사 상품요약서·보도자료(2026년 8월 기준) · 소득세법 시행령 제25조 · 기준일: 2026년 9월
+      [발행 전 검수 필요]
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* =====================================================================
+     연금 계산기 — kb_annuity_ppt_builder.html 원본 산식을 그대로 사용
+     (최저연금기준금액: 연 7%[20년 이내]·5%[이후] 단리 적립 + 장기유지가산율)
+     ===================================================================== */
+  const BASIC_RATE = [
+    {min:55,max:60,male:3.23,female:3.07},
+    {min:60,max:65,male:3.68,female:3.46},
+    {min:65,max:70,male:4.08,female:3.86},
+    {min:70,max:75,male:4.48,female:4.34},
+    {min:75,max:200,male:5.30,female:5.22},
+  ];
+  const BONUS_RATE = [
+    {min:0,max:25,rate:0},
+    {min:25,max:30,rate:15},
+    {min:30,max:35,rate:25},
+    {min:35,max:40,rate:40},
+    {min:40,max:45,rate:45},
+    {min:45,max:200,rate:60},
+  ];
+  const MIN_DEPOSIT = {5:10,7:8,10:5,15:5,20:0};
+  const PREM_MIN = {5:300000,7:300000,10:200000,15:200000,20:200000};
+  const PREM_MAX = 1000000;
+
+  function getBasicRate(age, gender) {
+    const row = BASIC_RATE.find(r => age>=r.min && age<r.max) || BASIC_RATE[BASIC_RATE.length-1];
+    return gender==='male' ? row.male : row.female;
+  }
+  function getBonusRate(T) {
+    const row = BONUS_RATE.find(r => T>=r.min && T<r.max) || BONUS_RATE[BONUS_RATE.length-1];
+    return row.rate;
+  }
+  function calcMinBase(monthlyPremium, paymentYears, T) {
+    const N = paymentYears*12;
+    let sum = 0;
+    for (let m=1; m<=N; m++) {
+      const t = (m-1)/12;
+      let factor;
+      if (T<=20) { factor = 1+0.07*(T-t); }
+      else if (t>=20) { factor = 1+0.05*(T-t); }
+      else { factor = 1+0.07*(20-t)+0.05*(T-20); }
+      sum += factor;
+    }
+    return monthlyPremium*sum;
+  }
+  function calcAnnuity(gender, entryAge, startAge, paymentYears, monthlyPremium) {
+    const T = startAge - entryAge;
+    const totalPremium = monthlyPremium*paymentYears*12;
+    const A = calcMinBase(monthlyPremium, paymentYears, T);
+    const B = getBasicRate(startAge, gender);
+    const C = getBonusRate(T);
+    const annualPension = A*(B/100)*(1+C/100);
+    const years = 100-startAge;
+    const totalPayout = annualPension*years;
+    return {T, totalPremium, A, B, C, annualPension, years, totalPayout};
+  }
+
+  const eok = n => {
+    const v = Math.round(n);
+    const eokPart = Math.floor(v/100000000);
+    const manPart = Math.round((v%100000000)/10000);
+    let s = '';
+    if (eokPart>0) s += eokPart+'억 ';
+    s += manPart.toLocaleString('ko-KR')+'만원';
+    return s.trim();
+  };
+  const parseNum = str => Number(String(str).replace(/[^0-9]/g,'')) || 0;
+
+  const calcPremInput = document.getElementById('c_premium');
+  calcPremInput.addEventListener('input', e => {
+    const digits = parseNum(e.target.value);
+    e.target.value = digits ? digits.toLocaleString('ko-KR') : '';
+  });
+
+  document.getElementById('c_calcBtn').addEventListener('click', () => {
+    ['err-c_entryAge','err-c_startAge','err-c_premium','err-c_combo'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+
+    const gender = document.getElementById('c_gender').value;
+    const entryAge = parseNum(document.getElementById('c_entryAge').value);
+    const startAge = parseNum(document.getElementById('c_startAge').value);
+    const paymentYears = Number(document.getElementById('c_years').value);
+    const monthlyPremium = parseNum(document.getElementById('c_premium').value);
+
+    let ok = true;
+    if (!entryAge && entryAge !== 0 || entryAge < 0 || entryAge > 65) {
+      document.getElementById('err-c_entryAge').textContent = '0~65세 사이로 입력해 주세요.';
+      ok = false;
+    }
+    if (!startAge || startAge < 55 || startAge > 85) {
+      document.getElementById('err-c_startAge').textContent = '55~85세 사이로 입력해 주세요.';
+      ok = false;
+    }
+    const minP = (paymentYears>=10 && entryAge<=30) ? 100000 : PREM_MIN[paymentYears];
+    if (!monthlyPremium || monthlyPremium<minP || monthlyPremium>PREM_MAX) {
+      document.getElementById('err-c_premium').textContent =
+        `월 ${minP.toLocaleString('ko-KR')}원 ~ ${PREM_MAX.toLocaleString('ko-KR')}원 사이로 입력해 주세요.`;
+      ok = false;
+    }
+    if (ok) {
+      const T = startAge - entryAge;
+      const minB = MIN_DEPOSIT[paymentYears];
+      if (T < paymentYears + minB) {
+        document.getElementById('err-c_combo').textContent =
+          `최소거치기간 요건 미충족: ${paymentYears}년납은 납입완료 후 최소 ${minB}년 거치가 필요합니다 (연금개시나이가 최소 ${entryAge+paymentYears+minB}세 이상이어야 함).`;
+        ok = false;
+      }
+    }
+    if (!ok) {
+      document.getElementById('c_result').hidden = true;
+      return;
+    }
+
+    const r = calcAnnuity(gender, entryAge, startAge, paymentYears, monthlyPremium);
+    document.getElementById('r_totalPremium').textContent = eok(r.totalPremium);
+    document.getElementById('r_A').textContent = eok(r.A);
+    document.getElementById('r_BC').textContent = `${r.B}% × (1+${r.C}%)`;
+    document.getElementById('r_annual').textContent =
+      `${eok(r.annualPension)} (월 약 ${Math.round(r.annualPension/12/10000).toLocaleString('ko-KR')}만원)`;
+    document.getElementById('r_years').textContent = `${startAge}세 → 100세, ${r.years}년`;
+    document.getElementById('r_total').textContent = eok(r.totalPayout);
+    document.getElementById('c_result').hidden = false;
+  });
+})();
+
+(function () {
+  var GOOGLE_FORM_ID = "1FAIpQLSd-v3Aiy0iedB_OjwUG4Kz8R-rARv41ERH1pkhXLlc-VnPr8w";
+  var ENTRY = {
+    name:  "entry.134128308",
+    phone: "entry.467501996",
+    birth: "entry.1988503106",
+    time:  "entry.627565679"
+  };
+
+  var applyLink = document.getElementById("applyLink");
+
+  applyLink.addEventListener("click", function (e) {
+    var nameEl = document.getElementById("f_name");
+    var phoneEl = document.getElementById("f_phone");
+    var birthEl = document.getElementById("f_birth");
+    var timeEl = document.getElementById("f_time");
+
+    if (!nameEl.value.trim() || !phoneEl.value.trim()) {
+      e.preventDefault();
+      alert("성함과 연락처는 필수 입력 항목입니다.");
+      return;
+    }
+
+    var params = new URLSearchParams();
+    params.set("usp", "pp_url");
+    params.set(ENTRY.name, nameEl.value.trim());
+    params.set(ENTRY.phone, phoneEl.value.trim());
+    if (timeEl.value) params.set(ENTRY.time, timeEl.value);
+    if (birthEl.value) {
+      var parts = birthEl.value.split("-");
+      if (parts.length === 3) {
+        params.set(ENTRY.birth + "_year", parts[0]);
+        params.set(ENTRY.birth + "_month", String(Number(parts[1])));
+        params.set(ENTRY.birth + "_day", String(Number(parts[2])));
+      }
+    }
+
+    applyLink.href = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID +
+      "/viewform?" + params.toString();
+  });
+})();
+
+</script>
+
+</body></html>
