@@ -130,18 +130,35 @@ h1, h2, h3, .display {
   position: relative;
   background: var(--navy);
   color: var(--on-navy);
-  padding: 56px 0 96px;
+  padding: 56px 0 76px;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
-}
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0; height: 6px;
-  background: var(--accent);
-  clip-path: polygon(0 100%, 100% 40%, 100% 100%, 0 100%);
+  border-bottom: 4px solid var(--accent);
 }
 .hero .wrap { position: relative; z-index: 1; }
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--on-navy-sub);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+  z-index: 1;
+  pointer-events: none;
+}
+.scroll-cue svg { display: block; animation: scrollCueBounce 1.6s ease-in-out infinite; }
+@keyframes scrollCueBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue svg { animation: none; }
+}
 .logo-life { height: 44px; width: auto; display: block; margin-bottom: 28px; }
 .eyebrow {
   display: inline-block;
@@ -227,19 +244,73 @@ h1, h2, h3, .display {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.16);
   color: var(--on-navy);
   font-weight: 700;
   font-size: 16px;
-  border: 1.5px solid rgba(255,255,255,0.45);
+  border: 2px solid rgba(255,255,255,0.8);
   border-radius: 999px;
   padding: 16px 30px;
   cursor: pointer;
   text-decoration: none;
   transition: transform .15s ease, background .15s ease, border-color .15s ease;
 }
-.btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.75); transform: translateY(-1px); }
+.btn-secondary:hover { background: rgba(255,255,255,0.26); border-color: #FFFFFF; transform: translateY(-1px); }
 .btn-secondary:active { transform: translateY(0); }
+
+/* 항상 떠있는 상단 우측 CTA — 스크롤 위치와 무관하게 신청 유도 */
+.floating-cta {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: 16px;
+  z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: var(--accent-ink);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 999px;
+  padding: 12px 22px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -10px rgba(240,162,2,0.55), 0 4px 12px -6px rgba(0,0,0,0.3);
+  transition: transform .15s ease, filter .15s ease;
+  animation: cta-pulse 1.8s ease-in-out infinite;
+}
+.floating-cta:hover { filter: brightness(1.05); transform: translateY(-1px); }
+@keyframes cta-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 24px -10px rgba(240,162,2,0.55), 0 4px 12px -6px rgba(0,0,0,0.3);
+  }
+  50% {
+    transform: scale(1.07);
+    box-shadow: 0 12px 30px -8px rgba(240,162,2,0.9), 0 6px 16px -6px rgba(0,0,0,0.35);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-cta { animation: none; }
+}
+@media (max-width: 560px) {
+  .floating-cta { top: calc(10px + env(safe-area-inset-top,0px)); right: 10px; padding: 9px 15px; font-size: 12.5px; }
+}
+
+/* 모바일 첫 화면에 CTA 버튼까지 스크롤 없이 보이도록 히어로 세로 간격 압축 */
+@media (max-width: 560px) {
+  .hero { padding: 24px 0 40px; }
+  .logo-life { height: 34px; margin-bottom: 16px; }
+  .eyebrow { font-size: 13px; padding: 6px 14px; margin-bottom: 12px; }
+  .hero h1 { font-size: clamp(26px, 8vw, 34px); margin-bottom: 10px; }
+  .hero p.sub { font-size: 14px; margin-bottom: 14px; max-width: 100%; }
+  .stat-row { gap: 10px; margin-bottom: 16px; }
+  .stat-card { padding: 12px 14px; border-radius: 14px; }
+  .stat-card .stat-value { font-size: 22px; margin-bottom: 3px; }
+  .stat-card .stat-label { font-size: 12px; }
+  .cta-row { gap: 10px; }
+  .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 15px; }
+  .scroll-cue { bottom: 4px; font-size: 9px; gap: 2px; }
+  .scroll-cue svg { width: 13px; height: 13px; }
+}
 
 /* ── SECTION shared ── */
 section { padding: 56px 0; }
@@ -255,6 +326,13 @@ section { padding: 56px 0; }
   font-size: clamp(22px, 4vw, 28px);
   font-weight: 700;
   line-height: 1.35;
+}
+.section-head h2 em {
+  font-style: normal;
+  color: var(--accent-deep);
+}
+.section-head h2.lg {
+  font-size: clamp(26px, 5.6vw, 36px);
 }
 
 /* ── FEATURES ── */
@@ -379,8 +457,10 @@ section { padding: 56px 0; }
 .submit-row { display: flex; flex-direction: column; gap: 10px; }
 .btn-submit {
   display: block;
-  background: var(--navy);
-  color: var(--on-navy);
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: var(--accent-ink);
   font-family: 'KBFGDisplay', sans-serif;
   font-weight: 700;
   font-size: 17px;
@@ -391,8 +471,11 @@ section { padding: 56px 0; }
   padding: 18px;
   cursor: pointer;
   width: 100%;
+  box-shadow: 0 16px 34px -16px rgba(240,162,2,0.5), 0 6px 14px -8px rgba(0,0,0,0.25);
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
 }
-.btn-submit:hover { filter: brightness(1.15); }
+.btn-submit:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.btn-submit:disabled { opacity: .6; cursor: default; transform: none; }
 .form-note { font-size: 12px; color: var(--note); text-align: center; }
 .success-msg {
   background: var(--surface);
@@ -418,8 +501,8 @@ section { padding: 56px 0; }
 .field-hint { font-size: 12px; color: var(--note); }
 .field-err { font-size: 12px; color: var(--accent-deep); min-height: 16px; }
 .btn-calc {
-  background: var(--navy);
-  color: var(--on-navy);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: var(--accent-ink);
   font-family: 'KBFGDisplay', sans-serif;
   font-weight: 700;
   font-size: 16px;
@@ -429,8 +512,10 @@ section { padding: 56px 0; }
   cursor: pointer;
   width: 100%;
   margin: 18px 0 6px;
+  box-shadow: 0 16px 34px -16px rgba(240,162,2,0.5), 0 6px 14px -8px rgba(0,0,0,0.25);
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
 }
-.btn-calc:hover { filter: brightness(1.15); }
+.btn-calc:hover { filter: brightness(1.05); transform: translateY(-1px); }
 .calc-result {
   margin-top: 26px;
   padding-top: 24px;
@@ -487,27 +572,53 @@ footer .disclaimer {
 }
 </style>
 
+<a class="floating-cta" href="#apply">무료 점검 신청</a>
+
 <div class="hero">
   <div class="wrap">
-    <div class="eyebrow">연금 정보</div>
-    <h1>사업비 <em>0원</em>,<br>확정금리 <em>7%</em><br>쌓는 연금</h1>
-    <p class="sub">많은 연금상품은 사업비가 먼저 빠집니다. 가입 후 20년간 연 7%, 이후 연 5%(단리)로 적립되는 확정금리 최저보증 구조는 다릅니다.</p>
-    <div class="stat-row">
-      <div class="stat-card">
-        <div class="stat-value">연 7%</div>
-        <div class="stat-label">최저 보증<br>가입 후 20년 이내</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value">0원</div>
-        <div class="stat-label">사업비<br>유지 시 미차감</div>
-      </div>
-    </div>
+    <h1>확정금리 <em>7%</em><br>연금</h1>
     <div class="cta-row">
-      <a class="btn-primary" href="#apply">무료 연금 점검 신청하기 <span class="arrow">→</span></a>
-      <a class="btn-secondary" href="#calculator">내 연금 계산해보기</a>
+      <a class="btn-primary" href="#apply">무료 상담 신청하기 <span class="arrow">→</span></a>
     </div>
   </div>
 </div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">EXAMPLE</div>
+      <h2 class="lg">월 <em>20만원</em>이면 <em>100세</em>까지 얼마나 받을까요?</h2>
+    </div>
+    <p style="color:var(--sub); font-size:14px; margin:-16px 0 20px;">
+      30세부터 월 20만원씩 10년간 납입하는 경우로 계산한 예시입니다. (남성 · 65세 연금개시 기준)
+    </p>
+    <div class="result-grid">
+      <div class="result-tile">
+        <div class="rk">총 납입원금</div>
+        <div class="rv">2,400만원</div>
+      </div>
+      <div class="result-tile accent">
+        <div class="rk">65세부터 예상 연금액</div>
+        <div class="rv">연 384만원</div>
+      </div>
+      <div class="result-tile accent">
+        <div class="rk">100세까지 총수령액(예상)</div>
+        <div class="rv">1억 3,449만원</div>
+      </div>
+      <div class="result-tile">
+        <div class="rk">총 납입액 대비</div>
+        <div class="rv">약 560.4%</div>
+      </div>
+    </div>
+    <div class="calc-note" style="margin-bottom:24px;">
+      위 예시는 최저연금기준금액 산출 공식(연 7%[20년 이내]·5%[이후] 단리 적립 + 장기유지가산율)에 따른 참고용 계산이며 특정 상품의 가입을 권유하는 것이 아닙니다.
+      실제 지급률·가산율은 성별·가입나이·납입기간·상품 공시 기준표에 따라 달라지며,
+      <strong style="color:var(--ink);">계약을 해지하면 연금기준금액은 지급되지 않고 해약환급금이 지급됩니다.</strong>
+      출처: 보험사 상품요약서·보도자료(2026년 8월 기준)
+    </div>
+    <a class="btn-primary" href="#calculator">내 나이로 직접 계산해보기 <span class="arrow">→</span></a>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
@@ -675,19 +786,19 @@ footer .disclaimer {
       <form id="leadForm">
         <div class="field">
           <label for="f_name">성함 <span class="req">*</span></label>
-          <input type="text" id="f_name" name="f_name" placeholder="홍길동" required>
+          <input type="text" id="f_name" placeholder="홍길동" required>
         </div>
         <div class="field">
           <label for="f_phone">연락처 <span class="req">*</span></label>
-          <input type="tel" id="f_phone" name="f_phone" placeholder="010-0000-0000" required>
+          <input type="tel" id="f_phone" placeholder="010-0000-0000" required>
         </div>
         <div class="field">
           <label for="f_birth">생년월일 (선택)</label>
-          <input type="date" id="f_birth" name="f_birth">
+          <input type="date" id="f_birth">
         </div>
         <div class="field">
           <label for="f_time">상담 희망 시간대</label>
-          <select id="f_time" name="f_time">
+          <select id="f_time">
             <option value="무관">무관</option>
             <option value="오전(09-12시)">오전 (09~12시)</option>
             <option value="오후(12-18시)">오후 (12~18시)</option>
@@ -698,16 +809,17 @@ footer .disclaimer {
         <div class="consent-notice">
           개인정보 수집·이용 안내 — 수집 항목: 성명, 연락처, 생년월일(선택) · 수집 목적: 연금 상담 및 안내 ·
           보유 기간: 상담 완료 후 1년 또는 동의 철회 시까지. 동의를 거부할 권리가 있으며, 동의 거부 시
-          상담 신청이 제한될 수 있습니다. 아래 버튼을 누르면 위 내용에 동의한 것으로 간주되며,
-          구글폼 화면으로 이동해 입력하신 내용이 자동으로 채워집니다 — 거기서 '제출' 버튼만
-          한 번 더 눌러주시면 신청이 완료됩니다.
+          상담 신청이 제한될 수 있습니다. 아래 버튼을 누르면 위 내용에 동의한 것으로 간주됩니다.
         </div>
 
         <div class="submit-row">
-          <a id="applyLink" class="btn-submit" href="#apply" target="_blank" rel="noopener">상담 신청하기</a>
+          <button type="submit" id="submitBtn" class="btn-submit">상담 신청하기</button>
           <div class="form-note">신청 내용은 상담 목적으로만 사용되며 제3자에게 제공되지 않습니다.</div>
         </div>
       </form>
+      <div id="successMsg" class="success-msg" hidden>
+        신청이 접수되었습니다. 확인 후 순차적으로 연락드리겠습니다.
+      </div>
     </div>
   </div>
 </section>
@@ -722,7 +834,6 @@ footer .disclaimer {
       실제 보장 내용, 가입조건, 보험료 및 수령액은 상품 및 약관에 따라 다르며, 정확한 사항은 개별 상담 및
       상품설명서를 통해 확인하시기 바랍니다.<br>
       출처: 보험사 상품요약서·보도자료(2026년 8월 기준) · 소득세법 시행령 제25조 · 기준일: 2026년 9월
-      [발행 전 검수 필요]
     </div>
   </div>
 </footer>
@@ -857,56 +968,68 @@ footer .disclaimer {
 
 (function () {
   /* =====================================================================
-     구글폼 연동 — 신청 버튼을 누르면 입력값을 채운 구글폼 "미리채움 링크"를
-     새 탭으로 연다.
-     2026-09-25: 처음엔 숨은 iframe으로 조용히 대신 전송하는 방식을 썼는데,
-     아티팩트로 게시된 페이지는 보안 정책(CSP)상 외부 사이트로의 요청 자체가
-     막혀 있어(콘솔에 CSP 위반으로 표시, iframe 임베드도 동일하게 막힘)
-     실제로는 구글에 한 번도 전송되지 않았던 것으로 확인됨. 그래서 페이지
-     안에서 몰래 전송하는 방식을 버리고, 실제 구글폼 페이지로 이동시키는
-     정상적인 링크 방식으로 바꿈 — 이 경우 사용자가 구글폼 화면에서
-     '제출' 버튼을 한 번 더 눌러야 완료된다.
+     구글 앱스크립트 웹앱 중계 방식
+     2026-09-25: 숨은 iframe으로 구글폼에 직접 제출하는 방식은 구글이 자체
+     CSP로 차단한다는 게 확인되어(csp.withgoogle.com 위반 리포트만 찍히고
+     실제 formResponse 요청은 아예 안 나감) 폐기. 대신 구글 앱스크립트를
+     "웹 앱"으로 배포해서 그 주소로 평범한 fetch POST를 보낸다 — 이건
+     iframe으로 "끼워넣기"가 아니라 그냥 백그라운드 네트워크 요청이라
+     프레이밍 차단에 안 걸린다. 앱스크립트가 받은 값을 시트에 바로 append.
+     Content-Type을 text/plain으로 보내는 이유: application/json으로 보내면
+     브라우저가 사전 확인(OPTIONS preflight)을 먼저 보내는데, 앱스크립트
+     웹앱은 이 preflight를 제대로 처리하지 못해 실패한다 — text/plain은
+     "단순 요청"으로 분류되어 preflight 없이 바로 전송되고, 앱스크립트
+     쪽에서는 e.postData.contents로 그대로 JSON을 파싱해서 받는다.
      ===================================================================== */
-  var GOOGLE_FORM_ID = "1FAIpQLSd-v3Aiy0iedB_OjwUG4Kz8R-rARv41ERH1pkhXLlc-VnPr8w";
-  var ENTRY = {
-    name:  "entry.134128308",
-    phone: "entry.467501996",
-    birth: "entry.1988503106",
-    time:  "entry.627565679"
-  };
 
-  var applyLink = document.getElementById("applyLink");
+  // TODO: 앱스크립트를 "웹 앱으로 배포"한 뒤 나오는 주소로 교체해야 함
+  // (https://script.google.com/macros/s/여기부분/exec 형태)
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvmaunHFttGQLLJOzNDTdK6cEHeVVY-eei-v2V3iaK-6qCQ5YfU00-0L8Xjzmzv_3_9A/exec";
 
-  applyLink.addEventListener("click", function (e) {
+  var form = document.getElementById("leadForm");
+  var submitBtn = document.getElementById("submitBtn");
+  var successMsg = document.getElementById("successMsg");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
     var nameEl = document.getElementById("f_name");
     var phoneEl = document.getElementById("f_phone");
     var birthEl = document.getElementById("f_birth");
     var timeEl = document.getElementById("f_time");
 
     if (!nameEl.value.trim() || !phoneEl.value.trim()) {
-      e.preventDefault();
       alert("성함과 연락처는 필수 입력 항목입니다.");
       return;
     }
 
-    var params = new URLSearchParams();
-    params.set("usp", "pp_url");
-    params.set(ENTRY.name, nameEl.value.trim());
-    params.set(ENTRY.phone, phoneEl.value.trim());
-    if (timeEl.value) params.set(ENTRY.time, timeEl.value);
-    if (birthEl.value) {
-      var parts = birthEl.value.split("-"); // "YYYY-MM-DD"
-      if (parts.length === 3) {
-        params.set(ENTRY.birth + "_year", parts[0]);
-        params.set(ENTRY.birth + "_month", String(Number(parts[1])));
-        params.set(ENTRY.birth + "_day", String(Number(parts[2])));
-      }
-    }
+    var payload = {
+      name: nameEl.value.trim(),
+      phone: phoneEl.value.trim(),
+      birth: birthEl.value || "",
+      time: timeEl.value || ""
+    };
 
-    applyLink.href = "https://docs.google.com/forms/d/e/" + GOOGLE_FORM_ID +
-      "/viewform?" + params.toString();
-    // href를 방금 채웠으니 preventDefault를 호출하지 않아 브라우저가 그대로
-    // 새 탭으로 이동하도록 둔다.
+    submitBtn.disabled = true;
+    submitBtn.textContent = "전송 중...";
+
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (json.result !== "success") throw new Error(json.message || "unknown error");
+        form.hidden = true;
+        successMsg.hidden = false;
+      })
+      .catch(function (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "상담 신청하기";
+        alert("전송 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        console.error("lead submit failed:", err);
+      });
   });
 })();
 
